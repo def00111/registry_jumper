@@ -1,0 +1,1 @@
+REG DELETE "HKCU\Software\Mozilla\NativeMessagingHosts\com.def00111.browser.regjump" /f

@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "Registry Jumper",
+  "author": "def00111",
+  "description": "Opens the selected registry key in regedit using a Visual Basic Script (VBScript)",
+  "version": "1.0.3",
+  "background": {
+    "persistent": true,
+    "scripts": [ "script.js" ]
+   },
+
+  "applications": {
+    "gecko": {
+      "id": "def00111@test.com",
+      "strict_min_version": "49.0"
+    }
+  },
+
+  "permissions": ["contextMenus", "nativeMessaging"],
+
+  "icons": {
+    "16": "regedit-icon.png"
+  }
+}

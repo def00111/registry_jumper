@@ -1,0 +1,1 @@
+REG ADD "HKCU\Software\Mozilla\NativeMessagingHosts\com.def00111.browser.regjump" /ve /t REG_SZ /d "%~dp0nativehost.json" /f

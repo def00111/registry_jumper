@@ -1,0 +1,9 @@
+{
+  "name": "com.def00111.browser.regjump",
+  "description": "Firefox Registry Jumper Native Host",
+  "path": "run-host.bat",
+  "type": "stdio",
+  "allowed_extensions": [
+    "def00111@test.com"
+  ]
+}
