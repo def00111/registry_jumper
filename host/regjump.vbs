@@ -45,30 +45,30 @@ strInput = re.Replace(strInput, "$1$2")
 strKeyPath = ""
 strHive = arrHives(hiveCode)
 
-If (InStr(1, strInput, strHive & "\", vbTextCompare) > 0) Then                     
+If (InStr(1, strInput, strHive & "\", vbTextCompare) > 0) Then
   arrSplit = Split(strInput, "\")
   arrSize = UBound(arrSplit)
-  
+
   If (arrSize >= 1) Then
     Dim rootKeys
     rootKeys = Array(&H80000000, &H80000001, &H80000002, &H80000003, &H80000005)
     rootKey = rootKeys(hiveCode)
-    
+
     sComputer = "."
-	  Set oReg = GetObject("winmgmts:{impersonationLevel=impersonate}!\\" & _
-	                                  sComputer & "\root\default:StdRegProv")
-	       
-	  Dim arrSubKeys()                      
+    Set oReg = GetObject("winmgmts:{impersonationLevel=impersonate}!\\" & _
+                                    sComputer & "\root\default:StdRegProv")
+
+    Dim arrSubKeys()
     For i = 1 To arrSize
       ok = (oReg.EnumKey(rootKey, strKeyPath, arrSubKeys) = 0)
       If Not ok Then Exit For
-        
+
       bVerifiedKey = False
       For Each subKey In arrSubKeys
         If (StrComp(subKey, arrSplit(i), vbTextCompare) = 0) Then
           bVerifiedKey = True
         End If
-          
+
         If (bVerifiedKey <> True) Then
           tempKey = arrSplit(i)
           Do
@@ -83,7 +83,7 @@ If (InStr(1, strInput, strHive & "\", vbTextCompare) > 0) Then
             End If
           Loop Until (bVerifiedKey = True)
         End If
-          
+
         If (bVerifiedKey = True) Then
           If (i = 1) Then
             strKeyPath = arrSplit(i)
@@ -93,7 +93,7 @@ If (InStr(1, strInput, strHive & "\", vbTextCompare) > 0) Then
           Exit For
         End If
       Next
-      
+
       If (bVerifiedKey = False) Then Exit For
     Next
   End If
@@ -114,18 +114,18 @@ On Error Goto 0 ' canceled by user?
 
 Function GetHiveCode()
   i = -1
-  
-	For j = 0 To UBound(arrHives)
-	  ' replace abbreviations
-	  strInput = Replace(strInput, arrHivesAbbr(j), arrHives(j), 1, -1, vbTextCompare)
-	  
-		x = InStr(1, strInput, arrHives(j), vbTextCompare)
-		If (x > 0) Then
-		  ' trim garbage before key start and find hive
-			strInput = Mid(strInput, x)
-			i = j
-			Exit For
-		End If	
-	Next
-	GetHiveCode = i
+
+  For j = 0 To UBound(arrHives)
+    ' replace abbreviations
+    strInput = Replace(strInput, arrHivesAbbr(j), arrHives(j), 1, -1, vbTextCompare)
+
+    x = InStr(1, strInput, arrHives(j), vbTextCompare)
+    If (x > 0) Then
+      ' trim garbage before key start and find hive
+      strInput = Mid(strInput, x)
+      i = j
+      Exit For
+    End If
+  Next
+  GetHiveCode = i
 End Function
